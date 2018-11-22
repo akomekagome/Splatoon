@@ -9,12 +9,12 @@ namespace Splatoon{
         
         //private float? jumpAfterDif = null;
         
-        private Rigidbody rb;
         [SerializeField] private float speed = 200f;
-        private Vector3 moveVec;
-        private Animator playerAnimator;
         [SerializeField]private float rotateSpeed = 2f;
         [SerializeField]private float jumpPower = 200f;
+        private Rigidbody rb;
+        private Vector3 moveVec;
+        private Animator playerAnimator;
         private bool canJump = false;
         private bool canMove = false;
         private bool hasPushedButton = false;
@@ -25,26 +25,39 @@ namespace Splatoon{
         public int Number{ set { number = value; }}
 
         public Action AnimationEnd;
-        private void Awake()
+        private Action playerUpdate;
+        private Action playerFixedUqdate;
+
+        private void Start()
         {
             rb = GetComponent<Rigidbody>();
             playerAnimator = GetComponent<Animator>();
             AnimationEnd = () => playerAnimator.Play("idel", 0, 0.0f);
+
+            if (GameManager.Instance.JoyconMode) playerUpdate += () => JoyconJumpJudge();
+            else playerUpdate += () => KeyBordJumpJudge();
+            playerUpdate += () => { AnimationChange(); Rotaion(); };
+
+            if (GameManager.Instance.JoyconMode) playerFixedUqdate += () => JoyconMove();
+            else playerFixedUqdate += () => KeyBordMove();
+            playerFixedUqdate += () => Jump();
         }
 
         public void PlayerUqdate(){
-            JoyconJumpJudge();
+            playerUpdate();
+            //JoyconJumpJudge();
             //KeyBordJumpJudge();
-            AnimationChange();
-            Rotaion();
+            //AnimationChange();
+            //Rotaion();
         }
 
         private void FixedUpdate()
         {
             if(canMove){
-                JoyconMove();
+                playerFixedUqdate();
+                //JoyconMove();
                 //KeyBordMove();
-                Jump();
+                //Jump();
 
             }
         }

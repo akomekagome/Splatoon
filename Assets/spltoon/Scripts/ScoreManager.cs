@@ -76,6 +76,8 @@ namespace Splatoon{
             }
 
         }
+
+       
         public bool SortArray(int x)
         {
             for (int i = 0; i < scores.Length; i++) if (ranks[i] == x) return true;

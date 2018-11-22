@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Splatoon;
@@ -14,6 +15,8 @@ namespace Splatoon{
         private AudioSource audioSource;
         [SerializeField] private AudioClip panchSound;
         private int number;
+        private Action playerApdate;
+         
 
         public int Number{ set { number = value; }}
 
@@ -26,12 +29,15 @@ namespace Splatoon{
 
             attackRangeObj.compare += damagrange => damagrange == damage.GetDamageRange;
             attackRangeObj.sendPos += () => transform.position;
+
+            if(GameManager.Instance.JoyconMode) playerApdate = () => JoyconAttack();
+            else  playerApdate = () => KeyBordAttack();
+
             audioSource = GetComponent<AudioSource>();
         }
 
         public void PlayerUpdate(){
-            //KeyBordAttack();
-            JoyconAttack();
+            playerApdate();
         }
 
         public void KeyBordAttack(){

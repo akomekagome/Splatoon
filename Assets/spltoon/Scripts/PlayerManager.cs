@@ -86,6 +86,7 @@ namespace Splatoon{
             {
                 move.CanMove = true;
             }
+            if (!GameManager.Instance.JoyconMode) { canMoves[1] = false; playerMoves[1].CanMove = false; }
         }
 
         public void MoveEnd()

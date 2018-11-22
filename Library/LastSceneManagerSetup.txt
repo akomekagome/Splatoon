@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/spltoon/Scenes/Spltoon.unity
+  isLoaded: 1
+  isActive: 1

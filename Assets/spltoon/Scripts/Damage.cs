@@ -86,6 +86,7 @@ namespace Splatoon{
 
         private void DownProcess(bool enable){
             rb.isKinematic = enable;
+            if (!GameManager.Instance.JoyconMode && number >= 2) return;
             if (setCanMove != null) setCanMove(!enable, number);
         }
     }

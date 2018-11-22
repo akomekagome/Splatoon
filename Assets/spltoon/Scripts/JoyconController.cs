@@ -11,6 +11,7 @@ using System.Linq;
 
 public class JoyconController : BestPracticeSingleton<JoyconController>
 {
+
     private List<Joycon> joycons;
 
     public void Init()
@@ -22,8 +23,7 @@ public class JoyconController : BestPracticeSingleton<JoyconController>
     public int GetJoyconLength() { return joycons.Count(); }
 
     //ジョイコンのジャイロの動きを送るためのメッソド
-    public Vector3 GetGyro(int number)
-    {
+    public Vector3 GetGyro(int number){
         return joycons[number - 1].GetGyro();
     }
 
@@ -38,10 +38,8 @@ public class JoyconController : BestPracticeSingleton<JoyconController>
         return joycons[number - 1].GetStick()[1] * -1f;
     }
 
-    public float Vertical(int number)
-    {
-        if (!joycons[number - 1].isLeft)
-        {
+    public float Vertical(int number){
+        if(!joycons[number - 1].isLeft){
             //右の場合
             return joycons[number - 1].GetStick()[0] * -1f;
         }
@@ -51,8 +49,7 @@ public class JoyconController : BestPracticeSingleton<JoyconController>
 
 
 
-    public bool PusedRightButtonDownSide(int number)
-    {
+    public bool PusedRightButtonDownSide(int number){
         if (!joycons[number - 1].isLeft)
         {
             //右の場合

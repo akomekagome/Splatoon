@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Splatoon;
+
 // 以下のURL参考
 // http://blog.livedoor.jp/akinow/archives/52511344.html
 
